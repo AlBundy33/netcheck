@@ -1,5 +1,5 @@
 # netcheck
-Script to check an log if internet is available
+Script to check and log if internet connection is available.
 
 Install in crontab on a device running 24/7 (in my case a raspberry pi).
 
