@@ -12,4 +12,4 @@ and add this entry to check your internet connection every minute
 * * * * * /home/pi/netcheck/netcheck.sh
 ```
 
-Connction losses and reconnections will be logged to netcheck.log (will be created in same folder as netcheck.sh).
+Connection losses and reconnections will be logged to netcheck.log (will be created in same folder as netcheck.sh).
