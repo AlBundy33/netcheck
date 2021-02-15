@@ -12,8 +12,16 @@ function log()
 }
 
 # ping a public ip so we don't have to care about dns errors
-ping -W 5 -c 1 1.1.1.1 2>&1 >/dev/null || ping -W 5 -c 1 8.8.8.8 2>&1 >/dev/null
-if [ $? -eq 0 ]; then
+TARGETS="1.1.1.1 8.8.8.8 www.google.de"
+
+result=0
+for t in $TARGETS; do
+	ping -W 5 -c 1 $t 2>&1 >/dev/null
+	result=$?
+	[ $result -eq 0 ] && break
+	sleep 1
+done
+if [ $result -eq 0 ]; then
 	# internet available
 	if [ -f "$MARKER" ]; then
 		log "internet connection recovered"
