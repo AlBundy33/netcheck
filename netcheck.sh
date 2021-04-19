@@ -19,7 +19,7 @@ for t in $TARGETS; do
 	ping -W 5 -c 1 $t 2>&1 >/dev/null
 	result=$?
 	[ $result -eq 0 ] && break
-	sleep 1
+	sleep 5
 done
 if [ $result -eq 0 ]; then
 	# internet available
