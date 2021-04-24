@@ -15,10 +15,12 @@ function log()
 TARGETS="1.1.1.1 8.8.8.8 www.google.de"
 
 result=0
+output=""
 for t in $TARGETS; do
-	ping -W 5 -c 1 $t 2>&1 >/dev/null
+	output=`ping -W 5 -c 1 $t 2>&1`
 	result=$?
 	[ $result -eq 0 ] && break
+	log "$output"
 	sleep 5
 done
 if [ $result -eq 0 ]; then
