@@ -14,13 +14,27 @@ function log()
 # ping a public ip so we don't have to care about dns errors
 TARGETS="1.1.1.1 8.8.8.8 www.google.de"
 
+verbose=0
+while [ $# -gt 0 ]; do
+	case $1 in
+		-v)
+			verbose=1
+			break
+		;;
+		*)
+			exit 1
+		;;
+	esac
+	shift
+done
+
 result=0
 output=""
 for t in $TARGETS; do
-	output=`ping -W 5 -c 1 $t 2>&1`
+	output=`ping -n -v -W 5 -c 3 $t 2>&1`
 	result=$?
 	[ $result -eq 0 ] && break
-	log "$output"
+	[ $verbose -eq 1 ] && log "$output"
 	sleep 5
 done
 if [ $result -eq 0 ]; then
@@ -32,7 +46,7 @@ if [ $result -eq 0 ]; then
 else
 	# internet not available
 	if [ ! -f "$MARKER" ]; then
-		log "internet connection lost"
+		log "internet connection lost ($result)"
 		touch "$MARKER"
 	fi
 fi
